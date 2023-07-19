@@ -1,6 +1,8 @@
 import React from "react";
 import { Loading } from "./Loading";
 
+const SECURITY_CODE = 'lola';
+
 class ClassState extends React.Component{
   constructor(){
     super();
@@ -8,28 +10,43 @@ class ClassState extends React.Component{
     this.state = {
       error: false,
       loading: false,
+      typed: '',
     }
   }
 
   componentDidUpdate(){
-    if(this,state.loading){
+    if(this.state.loading){
       setTimeout(() =>{
-          console.log('Loading...');
-          this.setState(state => ({loading: !state.loading}))
+          if(this.state.typed !== SECURITY_CODE){
+            this.setState({error: true});
+          }else{
+            this.setState({error: false});
+          }
+          this.setState({loading: false});
       }, 2000);
   }
   }
 
   render(){
+    //Decarando estas constantes podemos acceder directamente a los valores del componente 
+    //sin necesidad de la sintaxis con el this.state
+    const {error, loading} = this.state;
+
     return(
       <div>
         <h2>Eliminar ClassState</h2>
         <p>Por favor,escribe el código de seguridad.</p>
 
-        {this.state.error && (<p>Hay un error</p>)}
-        {this.state.loading && (<Loading/>)}
+        {(error && !loading) && (<p>Hay un error</p>)}
+        {loading && (<Loading/>)}
 
-        <input placeholder="Código de seguridad"/>
+        <input placeholder="Código de seguridad"
+          onChange={(event) =>{
+            this.setState({typed: event.target.value}); 
+            }
+          }
+        />
+
         <button
            onClick={()=>{
             this.setState( state => ({loading: !state.loading}) )

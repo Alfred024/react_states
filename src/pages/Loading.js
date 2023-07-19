@@ -9,9 +9,10 @@ class Loading extends React.Component{
       }
     }
 
-    componentWillUnmount(){
-        console.log('componente desmontado');
-    }
+    // Para definir el comportamiento cuando se desmonta 
+    // componentWillUnmount(){
+    //     console.log('componente desmontado');
+    // }
   
     render(){
       return(

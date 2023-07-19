@@ -13,12 +13,16 @@ function UseState() {
 
     React.useEffect(() =>{
         if(state.loading){
-            setState({...state, error: false});
             setTimeout(() =>{
                 if(state.typed !== SECURITY_CODE){
-                    setState({...state, error: true});
+                    setState({
+                        ...state, 
+                        error: true,
+                        loading: false,
+                    });
+                }else{
+                    setState({...state, confirmed: true, error: false, loading: false,});
                 }
-                setState({...state, loading: false});
             }, 2000);
         }
     }, [state.loading])
@@ -46,7 +50,6 @@ function UseState() {
                       setState({
                         ...state, 
                         loading: true,
-                        confirmed: true,
                     });
                   }}
               >Comprobar</button>

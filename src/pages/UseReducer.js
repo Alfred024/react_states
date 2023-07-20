@@ -18,9 +18,9 @@ function UseReducer() {
         if(state.loading){
             setTimeout(() =>{
                 if(state.typed !== SECURITY_CODE){
-                    dispatch({type: 'ERROR'});
+                    dispatch({type: actionTypes.error});
                 }else{
-                    dispatch({type: 'CONFIRMED'});
+                    dispatch({type: actionTypes.confirmed});
                 }
             }, 2000);
         }
@@ -40,13 +40,13 @@ function UseReducer() {
                   className="my-1 bg-slate-200 p-1 "
                   placeholder="Código de seguridad"
                   onChange={(event) => {
-                      dispatch({type: 'TYPED', payload: event.target.value});
+                      dispatch({type: actionTypes.typed, payload: event.target.value});
                   }}/>
       
               <button
                 className="mt-2 text-white bg-black w-1/2 p-2"
                   onClick={()=>{
-                      dispatch({type: 'CHECK'});
+                      dispatch({type: actionTypes.check});
                   }}
               >Comprobar</button>
             </div>  
@@ -63,14 +63,14 @@ function UseReducer() {
                     <button 
                         className="p-1 w-16 bg-slate-200 border border-slate-900 rounded-md"
                         onClick={() =>{
-                            dispatch({type: 'DELETE'});
+                            dispatch({type: actionTypes.delete});
                         }}
                     >Sí</button>
 
                     <button
                         className="p-1 w-16 bg-slate-200 border border-slate-900 rounded-md"
                         onClick={() =>{
-                            dispatch({type: 'CANCEL'});
+                            dispatch({type: actionTypes.cancel});
                         }}
                     >No</button>
                 </div>
@@ -83,7 +83,7 @@ function UseReducer() {
                 <button
                     className="py-1 px-2 w-fit bg-slate-200 border border-slate-900 rounded-md"
                     onClick={() =>{
-                        dispatch({type: 'RESET'});
+                        dispatch({type: actionTypes.reset});
                     }}
                 >Recuperar</button>
             </div>
@@ -92,14 +92,24 @@ function UseReducer() {
     
 }
 
+const actionTypes = {
+    error: 'ERROR',
+    confirmed: 'CONFIRMED',
+    typed: 'TYPED',
+    check: 'CHECK',
+    delete: 'DELETE', 
+    cancel: 'CANCEL',
+    reset: 'RESET',
+};
+
 const reducerObject = (state, payload) => ({
-    'ERROR': {...state, error: true,loading: false,},
-    'CONFIRMED': {...state, confirmed: true, error: false, loading: false,},
-    'TYPED': {...state, typed: payload},
-    'CHECK': {...state, loading: true,},
-    'DELETE': {...state, deleted: true,},
-    'CANCEL': {...state, confirmed: false,},
-    'RESET': {...state, confirmed: false,deleted: false,}
+    [actionTypes.error]: {...state, error: true,loading: false,},
+    [actionTypes.confirmed]: {...state, confirmed: true, error: false, loading: false,},
+    [actionTypes.typed]: {...state, typed: payload},
+    [actionTypes.check]: {...state, loading: true,},
+    [actionTypes.delete]: {...state, deleted: true,},
+    [actionTypes.cancel]: {...state, confirmed: false,},
+    [actionTypes.reset]: {...state, confirmed: false,deleted: false,}
 });
 
 const reducer = (state, action) =>{

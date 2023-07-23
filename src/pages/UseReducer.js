@@ -12,7 +12,6 @@ const initialState = {
 
 function UseReducer() {
     const [state, dispatch] = React.useReducer(reducer, initialState);
-    console.log(state);
 
     React.useEffect(() =>{
         if(state.loading){
@@ -28,10 +27,10 @@ function UseReducer() {
 
     if(!state.confirmed && !state.deleted){
         return(
-            <div className="m-1 flex flex-col justify-center items-center border border-slate-900 p-4">
+            <div className="m-1 flex flex-col justify-center items-center border border-slate-900">
 
-              <h2 className="font-bold text-xl mb-4">Eliminar UseReducer</h2>
-              <p>Por favor,escribe el código de seguridad:</p>
+              <h2 className="font-bold text-xl mb-4 bg-green-300 text-white w-full p-2">Eliminar UseReducer</h2>
+              <p className="mx-2">Por favor,escribe el código de seguridad:</p>
       
               {(state.error && !state.loading) && (<p>Hay un error</p>)}
               {state.loading && (<p>Cargando...</p>)}
@@ -44,7 +43,7 @@ function UseReducer() {
                   }}/>
       
               <button
-                className="mt-2 text-white bg-black w-1/2 p-2"
+                className="mt-2 text-white bg-black w-1/2 p-2 m-2"
                   onClick={()=>{
                       dispatch({type: actionTypes.check});
                   }}

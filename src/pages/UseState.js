@@ -29,12 +29,12 @@ function UseState() {
 
     if(!state.confirmed && !state.deleted){
         return(
-            <div className="m-1 flex flex-col justify-center items-center border border-slate-900 p-4">
+            <div className="m-1 flex flex-col justify-center items-center border border-slate-900">
 
-              <h2 className="font-bold text-xl mb-4">Eliminar UseState</h2>
+              <h2 className="font-bold text-xl mb-4 bg-blue-300 text-white w-full p-2">Eliminar UseState</h2>
               <p>Por favor,escribe el código de seguridad:</p>
       
-              {(state.error) && (<p>Hay un error</p>)}
+              {(state.error && !state.loading) && (<p>Hay un error</p>)}
               {state.loading && (<p>Cargando...</p>)}
       
               <input 
@@ -45,7 +45,7 @@ function UseState() {
                   }}/>
       
               <button
-                className="mt-2 text-white bg-black w-1/2 p-2"
+                className="mt-2 text-white bg-black w-1/2 p-2 mb-2"
                   onClick={()=>{
                       setState({
                         ...state, 
@@ -86,7 +86,7 @@ function UseState() {
                 </div>
             </div>
         );
-    } else if(state.confirmed && state.deleted){
+    }else if(state.confirmed && state.deleted){
         return(
             <div className="p-4 bg-green-200">
                 <h1 className="font-bold mb-4">Eliminado</h1>
